@@ -1,12 +1,3 @@
 {
-    "python.linting.enabled": false,
-    "python.linting.pylintArgs": [
-        "--errors-only"
-    ],
-    "python.unitTest.pyTestArgs": [
-        "--exitfirst",
-        "--verbose",
-        "src/"
-    ],
-    "python.unitTest.pyTestEnabled": true
+    "python.linting.enabled": true
 }
