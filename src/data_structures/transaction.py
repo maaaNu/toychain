@@ -3,10 +3,10 @@ from enum import Enum
 class Transaction(object):
     
     def __init__(self, type):
-        self.hash = ''
+        self.version = 1
         self.type = type
-        self.tx_input = []
-        self.tx_output = []
+        self.v_in = []
+        self.v_out = []
 
 
 class Tx_Type(Enum):
