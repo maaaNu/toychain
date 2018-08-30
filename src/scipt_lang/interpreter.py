@@ -6,6 +6,8 @@ class Interpreter(object):
 
     def execute(self):
         for command in self.execution_code:
-            commmand.
+            pass
 
-    def interpret()
+    @staticmethod
+    def interpret(script_as_string):
+        return Interpreter(script_as_string.split('\n'))

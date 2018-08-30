@@ -7,52 +7,52 @@ class Constants_Mixin(object):
         self.stack.append(-1)
     
     def OP_1(self):
-        self.append(1)
+        self.stack.append(1)
     
     def OP_TRUE(self):
-        self.append(1)
+        self.stack.append(1)
     
     def OP_2(self):
-        self.append(2)
+        self.stack.append(2)
 
     def OP_3(self):
-        self.append(3)
+        self.stack.append(3)
     
     def OP_4(self):
-        self.append(4)
+        self.stack.append(4)
     
     def OP_5(self):
-        self.append(5)
+        self.stack.append(5)
     
     def OP_6(self):
-        self.append(6)
+        self.stack.append(6)
     
     def OP_7(self):
-        self.append(7)
+        self.stack.append(7)
 
     def OP_8(self):
-        self.append(8)
+        self.stack.append(8)
 
     def OP_9(self):
-        self.append(9)
+        self.stack.append(9)
 
     def OP_10(self):
-        self.append(hex(10))
+        self.stack.append(10)
 
     def OP_11(self):
-        self.append(hex(11))
+        self.stack.append(11)
 
     def OP_12(self):
-        self.append(hex(12))
+        self.stack.append(12)
 
     def OP_13(self):
-        self.append(hex(13))
+        self.stack.append(13)
 
     def OP_14(self):
-        self.append(hex(14))
+        self.stack.append(14)
 
     def OP_15(self):
-        self.append(hex(15))
+        self.stack.append(15)
 
     def OP_16(self):
-        self.append(hex(16))
+        self.stack.append(16)
