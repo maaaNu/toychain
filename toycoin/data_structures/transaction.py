@@ -8,12 +8,10 @@ class Transaction(object):
         self.v_in = []
         self.v_out = []
 
-
 class Tx_Type(Enum):
     COINBASE = 1
     FEE_TRANSACTION = 2
-    REGULAR_TRANSACTION = 3
-
+    P2SH = 3
 
 class Tx_Input(object):
 

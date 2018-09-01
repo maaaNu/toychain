@@ -1,5 +1,5 @@
 import pytest
-from src.scipt_lang.opcodes.stack import Stack_Mixin
+from toycoin.script_lang.opcodes.stack import Stack_Mixin
 
 class Mock_Stack(Stack_Mixin):
 

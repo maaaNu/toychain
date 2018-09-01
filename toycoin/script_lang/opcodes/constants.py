@@ -1,4 +1,5 @@
 class Constants_Mixin(object):
+    
 
     def OP_0(self):
         self.stack.append([])

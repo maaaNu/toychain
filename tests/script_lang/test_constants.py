@@ -1,5 +1,5 @@
 import pytest
-from src.scipt_lang.opcodes.constants import Constants_Mixin
+from toycoin.script_lang.opcodes.constants import Constants_Mixin
 
 class Mock_Stack(Constants_Mixin):
 

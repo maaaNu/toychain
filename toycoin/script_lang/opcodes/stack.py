@@ -30,7 +30,10 @@ class Stack_Mixin(object):
         if len(self.stack) < n:
             raise Exception('Illegal Argument')
         self.stack.append(self.stack.pop(n * -1))
-    
+
+    def OP_TOINT(self):
+        element = self.stack.pop(-1)
+        self.stack.append(int(element))
 
     def OP_ROT(self):
         pass

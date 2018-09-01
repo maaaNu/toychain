@@ -1,41 +1,48 @@
 from Crypto.PublicKey import ECC
-from Crypto.Hash import SHA1
+from Crypto.Hash import SHA256, RIPEMD160
+from Crypto.Signature import DSS
 from abc import abstractmethod
 from functools import partial
+import base58
 import json
+from toycoin import util
 
 class Wallet(object):
 
     def __init__(self, io_module):
-        self.addresses = []
+        self.keypairs = []
         self.transactions = []
         self.set_serializable_module(io_module)
 
     def __eq__(self, other):
         if not isinstance(other, Wallet):
             False
-        other_addresses = other.get_addresses()
-        self_addresses = self.get_addresses()
+        other_addresses = other.get_keypairs()
+        self_addresses = self.get_keypairs()
         for address in self_addresses:
             if address not in other_addresses:
                 return False
         return True
-            
     
-    def new_address(self):
+    def new_keypair(self):
         key = ECC.generate(curve='P-256')
         pub = key.public_key()
-        self.addresses.append({
+        self.keypairs.append({
             'key': key,
             'key_pub': pub
-        })
+        })        
 
-    def get_addresses(self):
+    def get_keypairs(self):
         result = []
-        for address in self.addresses:
-            key_pub = address['key_pub'].export_key(format='DER')
-            result.append(SHA1.new(key_pub).hexdigest())
+        for keypair in self.keypairs:
+            key_pub = keypair['key_pub'].export_key(format='DER')
+            result.append(util.keypub_to_address(key_pub))
         return result
+
+    def create_sig(self, key, key_pub):
+        signer = DSS.new(key, 'fips-186-3', encoding='der')
+        msg = SHA256.new(key_pub.encode())
+        return signer.sign(msg)
 
     def set_serializable_module(self, io_module):
         if io_module is None:
@@ -60,18 +67,19 @@ class Wallet_as_Json(Wallet_IO):
     
     def serialize(self, wallet):
         json_file = {}
-        addresses_json = []
-        for address in wallet.addresses:
-            addresses_json.append(self._address_to_json(address))
-        json_file['addresses'] = addresses_json
+        wallet_json = []
+        for address in wallet.keypairs:
+            wallet_json.append(self._address_to_json(address))
+        json_file['keypairs'] = wallet_json
         return json.dumps(json_file, sort_keys=True, indent=4)
 
-    def _address_to_json(self, address):
+    def _address_to_json(self, key):
         address_json = {}
-        key_pub = address['key_pub'].export_key(format='DER')
-        address_json['key'] = address['key'].export_key(format='DER').hex()
+        key_pub = key['key_pub'].export_key(format='DER')
+        address_json['key'] = key['key'].export_key(format='DER').hex()
         address_json['key_pub'] = key_pub.hex()
-        address_json['address'] = SHA1.new(key_pub).hexdigest()
+        address_json['address'] = util.keypub_to_address(
+            key_pub).decode('utf-8')
         return address_json
     
     @staticmethod
@@ -79,7 +87,7 @@ class Wallet_as_Json(Wallet_IO):
         data = json.loads(json_string)
         wallet = Wallet(Wallet_as_Json())
         addresses = []
-        for address_object in data['addresses']:
+        for address_object in data['keypairs']:
             byte_string = bytearray.fromhex(address_object['key'])
             key = ECC.import_key(bytes(byte_string))
             pub = key.public_key()
@@ -87,5 +95,5 @@ class Wallet_as_Json(Wallet_IO):
                 'key': key,
                 'key_pub': pub
             })
-        wallet.addresses = addresses
+        wallet.keypairs = addresses
         return wallet

@@ -18,7 +18,7 @@ class FlowControl_Mixin(object):
         pass
 
     def OP_VERIFY(self):
-        if self.stack[-1] is 0:
+        if self.stack.pop() is 0:
             raise Exception('transaction is invalid')
     
     def OP_RETURN(self):
