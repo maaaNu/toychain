@@ -11,12 +11,12 @@ class Transaction(object):
 class Tx_Type(Enum):
     COINBASE = 1
     FEE_TRANSACTION = 2
-    P2SH = 3
+    P2PH = 3
 
 class Tx_Input(object):
 
     def __init__(self):
-        self.tx_id = ''
+        self.outpoint = ''  # The outpoint references a previous output
         self.amount = 0
         self.unlock_scripts = []
 
