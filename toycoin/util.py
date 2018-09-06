@@ -1,5 +1,5 @@
 from Crypto.Hash import SHA256, RIPEMD160
-import base58
+import base58, json
 
 def keypub_to_address(key_pub):
     keypubhash = keypub_to_keypubhash(key_pub.hex())

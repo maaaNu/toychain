@@ -17,5 +17,4 @@ def test_unlocking_script():
     OP_CHECKSIG
     """
     inter = Interpreter.init(code)
-    print("code=" + str(inter.execution_code))
     inter.execute()

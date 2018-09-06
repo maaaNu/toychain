@@ -6,3 +6,4 @@ class Blockchain(object):
         self.tx_pool = []
         self.start_bounty = 5000000000
         
+    

@@ -30,9 +30,6 @@ class Crypto_Mixin(object):
     def OP_CHECKSIG(self):
         key_pub = unhexlify(self.stack.pop())
         sig = self.stack.pop()
-        print("key_pub=",)
-        print("sig=",)
-        print(sig)
         key = ECC.import_key(key_pub)
         h = SHA256.new(key_pub)
         verifier = DSS.new(key, 'fips-186-3')

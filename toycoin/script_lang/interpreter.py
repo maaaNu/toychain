@@ -14,14 +14,12 @@ class Interpreter(Arithmetic_Mixin, Constants_Mixin, Crypto_Mixin, Stack_Mixin, 
 
     def execute(self):
         for statement in self.execution_code:
-            print("stack="+str(self.stack))
             if statement.startswith('OP_'):
                 getattr(self, statement)()
             else:
                 self.stack.append(statement)
                 
                 
-
     @staticmethod
     def init(script_as_string):
         return Interpreter([c.strip() for c in script_as_string.split('\n')])
