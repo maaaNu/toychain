@@ -14,13 +14,13 @@ class Mine(object):
 
     def mining_step(self):
         if hash(self.block) < self.block.header['target']:
+            if(self.block.header['nounce'] >= 4294967295):
+                raise StopIteration('Nounce has reached its max value')
             self.block.increment_nounce()
             return False
         return True
 
     def construct_merkleTree(self, transactions):
-        if not len(transactions) % 2 is 0:
-            transactions.append(transactions[-1])
         nodes = [hash(t) for t in transactions]
 
         h = SHA256.new()

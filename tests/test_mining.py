@@ -1,16 +1,17 @@
 from toycoin.data_structures.transaction import Transaction, Tx_Type, Tx_Output
 from toycoin.mining import Mine
 
-def test_createMerkleTree():
-    t1 = build_transaction(500000)
-    t2 = build_transaction(600000)
-    t3 = build_transaction(450000)
-    t4 = build_transaction(500001)
-    mine = Mine(2600002022.5340, [t1,t2,t3,t4], "0")
-    while not mine.mining_step():
-        print(hash(mine.block))
-    print("Mined = ", hash(mine.block))
-    pass
+def test_simple_mining():
+    t_1 = build_transaction(500000)
+    t_2 = build_transaction(600000)
+    t_3 = build_transaction(450000)
+    t_4 = build_transaction(500001)
+    t_5 = build_transaction(523490)
+    mine = Mine(2297526641161484781, [t_1, t_2, t_3, t_4, t_5], "0")
+    hash_found = mine.mining_step()
+    while not hash_found:
+        hash_found = mine.mining_step()
+    assert hash_found is True
 
 
 def build_transaction(amount):

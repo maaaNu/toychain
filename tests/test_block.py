@@ -14,13 +14,15 @@ def test_hash_emptyBlocks_UnequalIfObjectIsNotEqual():
     b1 = Block()
     sleep(0.1)
     b2 = Block()
-    assert b1.header['time'] != b2.header['time']
+    assert b1.header != b2.header
     assert hash(b1) != hash(b2)
 
 def test_calculateHash_EqualIfObjectEqual():
     b1 = Block()
     b1.txs.append(build_transaction())
     b2 = copy.deepcopy(b1)
+    assert b1.header == b2.header
+    assert hash(b1.txs[0]) == hash(b2.txs[0])
     assert hash(b1) == hash(b2)
 
 def build_transaction():
